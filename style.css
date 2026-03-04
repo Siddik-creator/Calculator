@@ -1,0 +1,199 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    padding: 20px;
+}
+
+.calculator {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    max-width: 380px;
+}
+
+.display {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 24px;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.previous-operand {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1rem;
+    font-weight: 400;
+    min-height: 24px;
+    margin-bottom: 4px;
+}
+
+.current-operand {
+    color: #ffffff;
+    font-size: 2.5rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.btn {
+    padding: 18px;
+    font-size: 1.25rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.btn:hover::before {
+    opacity: 1;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+    transform: translateY(0);
+    transition: transform 0.1s;
+}
+
+.btn.number {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.btn.number:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.btn.operator {
+    background: rgba(255, 159, 67, 0.2);
+    color: #ff9f43;
+    font-size: 1.5rem;
+}
+
+.btn.operator:hover {
+    background: rgba(255, 159, 67, 0.35);
+}
+
+.btn.function {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1rem;
+}
+
+.btn.function:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+.btn.equals {
+    background: linear-gradient(135deg, #ff9f43 0%, #ee5253 100%);
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.btn.equals:hover {
+    background: linear-gradient(135deg, #ffb068 0%, #f06b6c 100%);
+    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+}
+
+.btn.zero {
+    grid-column: span 2;
+}
+
+.btn[data-action="delete"] {
+    font-size: 1rem;
+}
+
+/* Active state for operators */
+.btn.operator.active {
+    background: #ff9f43;
+    color: #1a1a2e;
+}
+
+/* Press effect */
+.btn.pressed {
+    transform: scale(0.95);
+    box-shadow: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .calculator {
+        padding: 16px;
+        border-radius: 20px;
+    }
+    
+    .display {
+        padding: 16px;
+        min-height: 80px;
+    }
+    
+    .current-operand {
+        font-size: 2rem;
+    }
+    
+    .btn {
+        padding: 14px;
+        font-size: 1.1rem;
+        border-radius: 12px;
+    }
+}
+
+/* Animation for result */
+@keyframes resultPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.result-animate {
+    animation: resultPop 0.3s ease-out;
+}
